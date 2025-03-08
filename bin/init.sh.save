@@ -62,17 +62,12 @@ elif [[ "$(type sysctl 2>/dev/null)" ]] && [[ "$(sysctl -n machdep.cpu.vendor)" 
     CPU_INTEL="true"
 fi
 
-# Check GPU
+bin/init.sh -a gpu -c local# Check GPU
 if [[ "${OPT_ARCH}" == "gpu" ]]; then
-    echo "Testing GPU availability..."
-    # Try to build the test container using regular docker build
-    docker build -f "$INSTALL_DIR/utils/Dockerfile.gpu-detect" -t local/gputest "$INSTALL_DIR/utils" || true
-    
-    # Test if nvidia-smi works in a basic CUDA container
-    if docker run --rm --gpus all nvidia/cuda:11.8.0-base-ubuntu20.04 nvidia-smi &>/dev/null; then
-        echo "GPU detected in docker. Using GPU."
-    else
-        echo "No GPU detected in docker. Using CPU."
+    docker buildx build -t local/gputest - <$INSTALL_DIR/utils/Dockerfile.gpu-detect
+    GPUS=$(docker run --rm --gpus all local/gputest 2>/dev/null | awk '/Device: ./' | wc -l)
+    if [ $? -ne 0 ] || [ $GPUS -eq 0 ]; then
+        echo "No GPU detected in docker. Using CPU".
         OPT_ARCH="cpu"
     fi
 fi
