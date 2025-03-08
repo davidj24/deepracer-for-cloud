@@ -1,5 +1,3 @@
-# Testing that commits work properly! lalalala how do I commit and push this?
-
 def reward_function(params):
     '''
     Example of penalize steering, which helps mitigate zig-zag behaviors
