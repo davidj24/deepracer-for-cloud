@@ -22,8 +22,9 @@ if [[ -n "$SAGEMAKER_CONTAINERS" ]]; then
                         sudo sed -i '/^version:/d' $COMPOSE_FILE
                     fi
 
-                    sudo docker compose -f $COMPOSE_FILE stop $COMPOSE_SERVICE_NAME
-                    docker container rm $CONTAINER -v >/dev/null
+                    sudo docker compose --file $COMPOSE_FILE stop $COMPOSE_SERVICE_NAME
+                    docker container stop $CONTAINER >/dev/null 2>&1
+                    docker container rm $CONTAINER >/dev/null 2>&1
                 fi
             done
         fi
