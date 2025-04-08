@@ -3,7 +3,6 @@ logs/
 docker/volumes/
 recording/
 recording
-/*.env
 /*.bak
 /*.tar
 /*.json
