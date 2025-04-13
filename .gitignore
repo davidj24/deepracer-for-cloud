@@ -1,13 +1,13 @@
 .vscode/
-custom_files/
+# custom_files/
 logs/
 docker/volumes/
 recording/
 recording
-/*.env
+# /*.env
 /*.bak
 /*.tar
-/*.json
+# /*.json
 DONE
 data/
 tmp/
