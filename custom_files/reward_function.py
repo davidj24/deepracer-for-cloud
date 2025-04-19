@@ -70,7 +70,7 @@ def reward_function(params):
 #     "progress": float,                     # percentage of track completed
 #     "speed": float,                        # agent's speed in meters per second (m/s)
 #     "steering_angle": float,               # agent's steering angle in degrees
-#     "steps": int,                          # number steps completed
+#     "steps": int,                          # number steps completed. Each step is roughly 1/15th of a second later
 #     "track_length": float,                 # track length in meters.
 #     "track_width": float,                  # width of the track
 #     "waypoints": [(float, float), ]        # list of (x,y) as milestones along the track center
