@@ -4,10 +4,10 @@ logs/
 docker/volumes/
 recording/
 recording
-# /*.env
+*.env
 /*.bak
 /*.tar
-# /*.json
+/*.json
 DONE
 data/
 tmp/
@@ -15,4 +15,6 @@ autorun.s3url
 nohup.out
 /*.sh
 !quick_push.sh
+!run.env
+!system.env
 _
