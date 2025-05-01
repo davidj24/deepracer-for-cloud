@@ -1,11 +1,12 @@
 {
-    "action_space": {
-        "steering_angle": { "low": -30.0, "high": 30.0 },
-        "speed"         : { "low":  0.0,  "high":  1.0 }
-    },
-    "sensor":              ["FRONT_FACING_CAMERA"],
-    "neural_network":      "DEEP_CONVOLUTIONAL_NETWORK_SHALLOW",
-    "training_algorithm":  "sac",
-    "action_space_type":   "continuous",
-    "version":             "5"
+  "action_space": {
+    "steering_angle": { "low": -30.0, "high": 30.0 },
+    "speed"         : { "low":  0.0,  "high":  1.0 }
+  },
+  "sensor":              ["FRONT_FACING_CAMERA"],
+  "neural_network":      "DEEP_CONVOLUTIONAL_NETWORK_SHALLOW",
+  "training_algorithm":  "sac",
+  "action_space_type":   "continuous",
+  "version":             "5"
 }
+
