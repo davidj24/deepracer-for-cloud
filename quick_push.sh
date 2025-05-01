@@ -17,9 +17,9 @@ echo "Running dr-upload-car.sh..."
 echo "Creating directory models/$MODEL_NAME..."
 mkdir -p models/$MODEL_NAME
 
-# Step 3: Copy model files
+# Step 3: Copy model files and rename carfile
 echo "Copying files into models/$MODEL_NAME..."
-cp tmp/car_upload/model/carfile.tar.gz models/$MODEL_NAME/
+cp tmp/car_upload/model/carfile.tar.gz models/$MODEL_NAME/${MODEL_NAME}.tar.gz
 cp tmp/car_upload/model/model_metadata.json models/$MODEL_NAME/
 cp custom_files/reward_function.py models/$MODEL_NAME/
 
@@ -32,4 +32,3 @@ git commit -m "$COMMIT_MSG"
 
 echo "Pushing to GitHub..."
 git push
-
