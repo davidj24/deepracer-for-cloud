@@ -9,18 +9,17 @@ def reward_function(params):
     steering = abs(params['steering_angle']) # Only need the absolute steering angle
     is_crashed = params['is_crashed']
     off_track = params['is_offtrack']
-    speed = params['speed']
+    speed = params['speed'] # Measured in m/s
 
     reward = 0
 
-    # Dividing speed to ensure a large m/s value doesn't overpower everything else
-    reward += speed/10
+    reward += speed
 
     if is_crashed:
-        reward -= 5
+        return -10
 
     if off_track:
-        reward -= 3
+        return -5
 
 
     # Calculate 3 marks that are farther and father away from the center line
