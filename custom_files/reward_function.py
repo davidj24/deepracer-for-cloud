@@ -19,8 +19,9 @@ def reward_function(params):
     if is_crashed or off_track:
         return -10
 
+    center_reward = distance_from_center / (track_width/2)
 
-    reward = 10*speed * np.exp(-5 * distance_from_center)
+    reward = 10*speed * np.exp(-5 * center_reward**2)
 
 
 
