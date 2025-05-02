@@ -1,3 +1,5 @@
+import numpy as np
+
 def reward_function(params):
     '''
     Example of penalize steering, which helps mitigate zig-zag behaviors
@@ -13,27 +15,14 @@ def reward_function(params):
 
     reward = 0
 
-    reward += speed
 
-    if is_crashed:
+    if is_crashed or off_track:
         return -10
 
-    if off_track:
-        return -5
+
+    reward = 10*speed * np.exp(-5 * distance_from_center)
 
 
-    # Calculate 3 marks that are farther and father away from the center line
-    marker_1 = 0.1 * track_width
-    marker_2 = 0.25 * track_width
-    marker_3 = 0.5 * track_width
-
-    # Give higher reward if the car is closer to center line and vice versa
-    if distance_from_center <= marker_1:
-        reward += 1
-    elif distance_from_center <= marker_2:
-        reward += 0.5
-    elif distance_from_center <= marker_3:
-        reward += 0.1
 
 
     # Steering penality threshold, change the number based on your action space setting
