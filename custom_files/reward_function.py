@@ -16,11 +16,9 @@ def reward_function(params):
     off_track = params['is_offtrack']
     speed = params['speed'] # Measured in m/s
 
-    reward = 0
-
     center_reward = distance_from_center / (track_width/2)
 
-    reward += 10*speed * np.exp(-5 * center_reward**2)
+    reward = 10*speed * np.exp(-5 * center_reward**2)
 
 
 
