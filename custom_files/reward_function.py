@@ -5,9 +5,6 @@ def reward_function(params):
     Example of penalize steering, which helps mitigate zig-zag behaviors
     '''
     
-    if is_crashed or off_track:
-        return -10
-    
     # Read input parameters
     distance_from_center = params['distance_from_center']
     track_width = params['track_width']
@@ -15,6 +12,9 @@ def reward_function(params):
     is_crashed = params['is_crashed']
     off_track = params['is_offtrack']
     speed = params['speed'] # Measured in m/s
+
+    if is_crashed or off_track:
+        return -10
 
     center_reward = distance_from_center / (track_width/2)
 
