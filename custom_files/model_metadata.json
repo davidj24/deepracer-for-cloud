@@ -1,7 +1,7 @@
 {
   "action_space": {
     "steering_angle": { "low": -30.0, "high": 30.0 },
-    "speed"         : { "low":  0.0,  "high":  1.0 }
+    "speed"         : { "low":  0.6,  "high":  0.8 }
   },
   "sensor":              ["FRONT_FACING_CAMERA"],
   "neural_network":      "DEEP_CONVOLUTIONAL_NETWORK_SHALLOW",
