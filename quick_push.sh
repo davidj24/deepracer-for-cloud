@@ -8,27 +8,39 @@ fi
 
 MODEL_NAME=$1
 COMMIT_MSG=$2
+MODEL_DIR="models/$MODEL_NAME"
 
-# Step 1: Run upload-car.sh with source
+# Step 1: Run upload-car.sh to generate model artifacts
 echo "Running dr-upload-car.sh..."
-./scripts/upload/upload-car.sh -L -f -s models/${MODEL_NAME}
+./scripts/upload/upload-car.sh -L -f
 
-# Step 2: Create directory
-echo "Creating directory models/$MODEL_NAME..."
-mkdir -p models/$MODEL_NAME
+# Check if upload generated expected files
+if [ ! -f tmp/car_upload/model/carfile.tar.gz ] || [ ! -f tmp/car_upload/model/model_metadata.json ]; then
+  echo "Error: carfile.tar.gz or model_metadata.json not found. Upload likely failed."
+  exit 1
+fi
 
-# Step 3: Copy artifacts if they exist
-echo "Copying files into models/$MODEL_NAME..."
-cp tmp/car_upload/model/carfile.tar.gz models/$MODEL_NAME/ || echo "Missing carfile.tar.gz"
-cp tmp/car_upload/model/model_metadata.json models/$MODEL_NAME/ || echo "Missing model_metadata.json"
-cp custom_files/reward_function.py models/$MODEL_NAME/ || echo "Missing reward_function.py"
+# Step 2: Remove old model directory if it exists
+if [ -d "$MODEL_DIR" ]; then
+  echo "Removing existing directory $MODEL_DIR..."
+  rm -rf "$MODEL_DIR"
+fi
 
-# Step 4: Git add, commit, push
+# Step 3: Create fresh directory and copy model files
+echo "Creating $MODEL_DIR..."
+mkdir -p "$MODEL_DIR"
+
+echo "Copying model files into $MODEL_DIR..."
+cp tmp/car_upload/model/carfile.tar.gz "$MODEL_DIR/"
+cp tmp/car_upload/model/model_metadata.json "$MODEL_DIR/"
+cp custom_files/reward_function.py "$MODEL_DIR/"
+
+# Step 4: Git add, commit, and push
 echo "Adding changes to Git..."
-git add models/ run.env system.env custom_files/
+git add "$MODEL_DIR" run.env system.env custom_files/
 
 echo "Committing..."
-git commit -m "$COMMIT_MSG" || echo "Nothing to commit."
+git commit -m "$COMMIT_MSG"
 
 echo "Pushing to GitHub..."
 git push
