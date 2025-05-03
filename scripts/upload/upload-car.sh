@@ -49,9 +49,24 @@ fi
 mkdir -p $DR_DIR/tmp/car_upload
 cd $DR_DIR/tmp/car_upload
 #ensure directory is empty
-rm -r $DR_DIR/tmp/car_upload/*
+if [[ -d "$DR_DIR/tmp/car_upload" ]]; then
+    rm -rf $DR_DIR/tmp/car_upload/*
+fi
+
 #The files we want are located inside the sagemaker container at /opt/ml/model.  Copy them to the tmp directory
+if [[ -z "$CONTAINER_NAME" ]]; then
+    echo "Error: No SageMaker (algo) container found. Is training running?"
+    exit 1
+fi
+
 docker cp $CONTAINER_NAME:/opt/ml/model $DR_DIR/tmp/car_upload
+
+if [[ ! -d "$DR_DIR/tmp/car_upload/model" ]]; then
+    echo "Error: model directory not found after docker cp. Something went wrong."
+    exit 1
+fi
+
+
 cd $DR_DIR/tmp/car_upload/model
 #create a tar.gz file containing all of these files
 tar -czvf carfile.tar.gz *
