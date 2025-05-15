@@ -15,6 +15,6 @@ autorun.s3url
 nohup.out
 /*.sh
 !quick_push.sh
-!run.env
-!system.env
+# !run.env
+# !system.env
 _
