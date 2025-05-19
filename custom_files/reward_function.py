@@ -14,7 +14,7 @@ def reward_function(params):
     speed = params['speed'] # Measured in m/s
 
     if is_crashed or off_track:
-        return -50
+        return -1000
 
     center_reward = distance_from_center / (track_width/2)
 
